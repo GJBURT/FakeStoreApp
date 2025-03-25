@@ -8,16 +8,18 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
+import ProductDetails from './ProductDetails';
+import {Link} from 'react-router-dom'
 
 function ProductListing() {
-    const [products, setProducts] = useState([]);     // State to fake store products
+    const [product, setProduct] = useState([]);     // State to fake store products
     const [loading, setLoading] = useState(true); // Loading state
     const [error, setError] = useState(null);    // Error state
 
 useEffect(() => {
     axios.get('https://fakestoreapi.com/products')
         .then(response => {
-        setUsers(response.data);
+        setProduct(response.data);
         setLoading(false);
         })
         .catch(error => {
@@ -47,20 +49,18 @@ useEffect(() => {
 
       return (
         <Container>
-          <h3>Products List</h3>
+          <h3>Products</h3>
           <Row>
-            {products.map(products => (
-              <Col key={products.id} className="mt-4">
+            {product.map(product => (
+              <Col key={product.id} className="mt-4">
                 <Card style={{ width: '18rem' }} >
-                  <Card.Img variant="top" src={products.image} />
+                  <Card.Img variant="top" src={product.image} />
                   <Card.Body>
-                    <Card.Title>{products.title}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">👤 {products.username}</Card.Subtitle>
-                    <Card.Text className="mt-3">📞 {user.phone}</Card.Text>
-                    <Card.Link href={`mailto:${user.email}`} className="mb-3 d-block text-decoration-none" >
-                      ✉️ {user.email}
-                    </Card.Link>
-                    <Button href={`/user-todos/${user.id}`}>Todo List</Button>
+                    <Card.Title>{product.title}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">👤 {product.category}</Card.Subtitle>
+                    <Card.Text className="mt-3">${product.price}</Card.Text>
+                    
+                    <Link to={`/products/${product.id}`} className="btn btn-primary">Product Details</Link>
                   </Card.Body>
                 </Card>
               </Col>
@@ -69,3 +69,5 @@ useEffect(() => {
         </Container>
       );
     }
+
+export default ProductListing;
