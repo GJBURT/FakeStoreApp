@@ -60,7 +60,7 @@ useEffect(() => {
                     <Card.Subtitle className="mb-2 text-muted">👤 {product.category}</Card.Subtitle>
                     <Card.Text className="mt-3">${product.price}</Card.Text>
                     
-                    <Link to={`/products/${product.id}`} className="btn btn-primary">Product Details</Link>
+                    <Link to={`/ProductDetails/${product.id}`} className="btn btn-primary">Product Details</Link>
                   </Card.Body>
                 </Card>
               </Col>
