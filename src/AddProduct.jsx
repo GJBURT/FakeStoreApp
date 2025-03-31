@@ -34,7 +34,63 @@ function AddProduct() {
     //Form submission to update the product
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`https://fakestoreapi.com/products`, product)
+
+        setLoading(true);
+        setError(null);
+        setSuccess(false);
+        
+
+        // Validate the product data before sending it to the API
+        if (!product.title || !product.category || !product.price || !product.description) {
+            setError('All fields are required!');
+            setLoading(false);
+            return;
+        }
+        if (product.price <= 0) {
+            setError('Price must be greater than 0!');
+            setLoading(false);
+            return;
+        }
+        if (product.description.length < 10) {
+            setError('Description must be at least 10 characters long!');
+            setLoading(false);
+            return;
+        }
+        if (product.title.length < 3) {
+            setError('Title must be at least 3 characters long!');
+            setLoading(false);
+            return;
+        }
+        if (product.category.length < 3) {
+            setError('Category must be at least 3 characters long!');
+            setLoading(false);
+            return;
+        }
+
+        // Add a placeholder image if none is provided
+        const productWithImage = {
+            ...product,
+            image: product.image || 'https://via.placeholder.com/150'
+        };
+
+        // Reset error state if validation passes
+        setError(null);
+        setSuccess(false);
+        // Reset loading state
+        setLoading(true);
+        // Reset success state
+        setSuccess(false);
+        // Reset error state
+        setError(null);
+        // Reset loading state
+        setLoading(true);
+        // Reset success state
+        setSuccess(false);
+        // Reset error state
+        setError(null); 
+        
+        // POST request to add a new product
+        axios.post(`https://fakestoreapi.com/products`, productWithImage)
             .then(response => {
                 // Log the changes through POST Request
                 console.log("POST Response:", response.data);
@@ -44,6 +100,7 @@ function AddProduct() {
             })
             .catch(error => {
                 setError(`Failed to add product: ${error.message}`);
+                setLoading(false);
             });
     };
 
@@ -64,6 +121,17 @@ function AddProduct() {
                         value={product.title}
                         onChange={handleChange}
                         required
+                    />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Image URL</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="image"
+                        value={product.image}
+                        onChange={handleChange}
+                        placeholder="https://example.com/image.jpg"
                     />
                 </Form.Group>
 
