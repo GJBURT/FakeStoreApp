@@ -8,10 +8,12 @@ function HomePage() {
                 <Row>
                     <Col>
                         <h3>Welcome to Fake Store!</h3>
-                        <p>Discover the latest trends in fashion, electronics, and more! 
+                        <p>At Fake Store you can discover the latest trends in fashion, electronics, and more!<br></br><br></br>
                             <Link to="/ProductListing">
-                            <button variant="primary">Check it out here!</button>
+                            <button variant="primary">Check out all of our amazing products here!</button>
                             </Link>
+                            <br></br><br></br>
+                            Make sure to like us on social media!
                         </p>
                     </Col>
                 </Row>
